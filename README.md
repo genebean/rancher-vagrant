@@ -1,6 +1,8 @@
 # rancher-vagrant
 Vagrantfile for deploying Rancher 2.0 in VirtualBox.
 
+![Screenshot of Rancher 2 cluster](screenshot.png)
+
 ## Pre-requisites
 
 * VirtualBox
@@ -22,14 +24,13 @@ The Rancher platform you get with this Vagrantfile is:
 * Vagrant box genebean/centos-7-docker-ce
 
 The Vagrantfile configures each box to use the stock docker that is supported by
-Rancher by default. If you would prefer to use the latest version of Docker CE
-change
+Rancher by default. If you would prefer to use Docker CE you may want to adjust
+these two settings near the top of the Vagrantfile:
 
 ```ruby
-USE_STOCK_DOCKER = true
+USE_STOCK_DOCKER = true # change to false to use Docker CE
+UPDATE_DOCKER_CE = true
 ```
-
-to `false` near the top of the Vagrantfile.
 
 Before you run `vagrant up` you should review the Vagrantfile settings to map
 your requirements.

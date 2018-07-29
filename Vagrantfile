@@ -5,7 +5,8 @@ BOX_IMAGE = "genebean/centos-7-docker-ce"
 NODE_COUNT = 3 # Minimum one node
 RANCHER_PASSWORD = 'password'
 RANCHER_CLUSTER_NAME = 'playground'
-USE_STOCK_DOCKER = true
+USE_STOCK_DOCKER = true # change to false to use Docker CE
+UPDATE_DOCKER_CE = true
 
 Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
@@ -35,7 +36,7 @@ Vagrant.configure("2") do |config|
         systemctl enable docker
         systemctl start docker
       EOC
-    else
+    elsif UPDATE_DOCKER_CE
       master.vm.provision "shell", inline: 'yum -y upgrade docker-ce'
     end
     master.vm.provision "docker" do |d|
@@ -97,7 +98,7 @@ Vagrant.configure("2") do |config|
           systemctl enable docker
           systemctl start docker
         EOC
-      else
+      elsif UPDATE_DOCKER_CE
         node.vm.provision "shell", inline: 'yum -y upgrade docker-ce'
       end
       node.vm.provision "shell", inline: <<-EOC
